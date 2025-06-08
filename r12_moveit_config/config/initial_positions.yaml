@@ -2,6 +2,7 @@
 
 initial_positions:
   elbow_joint: 0
+  gripper_joint: 0
   hand_joint: 0
   shoulder_joint: 0
   waist_joint: 0

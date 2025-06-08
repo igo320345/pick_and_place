@@ -237,5 +237,100 @@
             </geometry>
         </collision>
     </link>
+    <!-- GRIPPER ASSEMBLY -->
     
+    <!-- Gripper Base -->
+    <joint name="gripper_base_joint" type="fixed">
+        <parent link="wrist_tool_link"/>
+        <child link="gripper_base_link"/>
+        <origin xyz="0 0 0.02" rpy="0 0 0"/>
+    </joint>
+    
+    <link name="gripper_base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.015"/>
+            <geometry>
+                <box size="0.03 0.025 0.03"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.015"/>
+            <geometry>
+                <box size="0.03 0.025 0.03"/>
+            </geometry>
+        </collision>
+    </link>
+    
+    <!-- Main Gripper Joint (controls both fingers) -->
+    <joint name="gripper_joint" type="prismatic">
+        <parent link="gripper_base_link"/>
+        <child link="left_gripper_finger_link"/>
+        <origin xyz="0 0.0125 0.03" rpy="0 0 0"/>
+        <limit lower="-0.012" upper="0.012" effort="10" velocity="0.02"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    
+    <link name="left_gripper_finger_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0.005 0.02"/>
+            <geometry>
+                <box size="0.02 0.01 0.04"/>
+            </geometry>
+        </visual>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0.015 0.045"/>
+            <geometry>
+                <box size="0.015 0.01 0.01"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0.005 0.02"/>
+            <geometry>
+                <box size="0.02 0.01 0.04"/>
+            </geometry>
+        </collision>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0.015 0.045"/>
+            <geometry>
+                <box size="0.015 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link>
+    
+    <!-- Right Gripper Finger (mimic joint) -->
+    <joint name="right_gripper_joint" type="prismatic">
+        <parent link="gripper_base_link"/>
+        <child link="right_gripper_finger_link"/>
+        <origin xyz="0 -0.0125 0.03" rpy="0 0 0"/>
+        <limit lower="-0.012" upper="0.012" effort="10" velocity="0.02"/>
+        <axis xyz="0 -1 0"/>
+        <mimic joint="gripper_joint" multiplier="1.0" offset="0"/>
+    </joint>
+    
+    <link name="right_gripper_finger_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 -0.005 0.02"/>
+            <geometry>
+                <box size="0.02 0.01 0.04"/>
+            </geometry>
+        </visual>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 -0.015 0.045"/>
+            <geometry>
+                <box size="0.015 0.01 0.01"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 -0.005 0.02"/>
+            <geometry>
+                <box size="0.02 0.01 0.04"/>
+            </geometry>
+        </collision>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 -0.015 0.045"/>
+            <geometry>
+                <box size="0.015 0.01 0.01"/>
+            </geometry>
+        </collision>
+    </link>
 </robot>

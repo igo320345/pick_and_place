@@ -5,9 +5,9 @@ moveit_setup_assistant_config:
   srdf:
     relative_path: config/r12.srdf
   package_settings:
-    author_name: ""
-    author_email: ""
-    generated_timestamp: 1749035853
+    author_name: igo320341
+    author_email: igo320341@gmail.com
+    generated_timestamp: 1749397990
   control_xacro:
     command:
       - position

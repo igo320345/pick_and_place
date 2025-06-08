@@ -6,7 +6,7 @@
   <description>
      An automatically generated package with all the configuration and launch files for using the r12 with the MoveIt Motion Planning Framework
   </description>
-  <maintainer email="igo320341@todo.todo">igo320341</maintainer>
+  <maintainer email="igo320341@gmail.com">igo320341</maintainer>
 
   <license>BSD</license>
 
@@ -14,7 +14,7 @@
   <url type="bugtracker">https://github.com/ros-planning/moveit2/issues</url>
   <url type="repository">https://github.com/ros-planning/moveit2</url>
 
-  <author email="igo320341@todo.todo">igo320341</author>
+  <author email="igo320341@gmail.com">igo320341</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
