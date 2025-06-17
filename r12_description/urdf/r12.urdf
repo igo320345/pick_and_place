@@ -26,7 +26,7 @@
         <parent link="base_link"/>
         <child link="waist_shoulder_link"/>
         <origin xyz="0 0 0.0925" rpy="0 0 0"/>
-        <limit lower="-3.14159" upper="3.14159" effort="0.1" velocity="0.005"/>
+        <limit lower="-3.14159" upper="3.14159" effort="5.0" velocity="1.0"/>
         <axis xyz="0 0 1"/>
     </joint>
   
@@ -68,7 +68,7 @@
         <parent link="waist_shoulder_link"/>
         <child link="shoulder_elbow_link"/>
         <origin xyz="0 0 0.2105" rpy="0 0 0"/>
-        <limit lower="-3.14159" upper="3.14159" effort="0.1" velocity="0.005"/>
+        <limit lower="-3.14159" upper="3.14159" effort="5.0" velocity="1.0"/>
         <axis xyz="1 0 0"/>
     </joint>
     
@@ -170,7 +170,7 @@
         <parent link="shoulder_elbow_link"/>
         <child link="elbow_hand_link"/>
         <origin xyz="0.04 0 0.25" rpy="0 0 0"/>
-        <limit lower="-2.26" upper="2.26" effort="0.1" velocity="0.005"/>
+        <limit lower="-2.26" upper="2.26" effort="5.0" velocity="1.0"/>
         <axis xyz="1 0 0"/>
     </joint>
     
@@ -212,7 +212,7 @@
         <parent link="elbow_hand_link"/>
         <child link="hand_wrist_link"/>
         <origin xyz="-0.04 0 0.25" rpy="0 0 0"/>
-        <limit lower="-2.09" upper="2.09" effort="0.1" velocity="0.005"/>
+        <limit lower="-2.09" upper="2.09" effort="5.0" velocity="1.0"/>
         <axis xyz="1 0 0"/>
     </joint>
     
@@ -254,7 +254,7 @@
         <parent link="hand_wrist_link"/>
         <child link="wrist_tool_link"/>
         <origin xyz="0 0 0.02" rpy="0 0 0"/>
-        <limit lower="-3.14159" upper="3.14159" effort="0.1" velocity="0.005"/>
+        <limit lower="-3.14159" upper="3.14159" effort="5.0" velocity="1.0"/>
         <axis xyz="0 0 1"/>
     </joint>
     
@@ -397,6 +397,12 @@
                      izz="0.000002"/>
         </inertial>
     </link>
+
+    <joint name="right_gripper_joint_mimic" type="fixed">
+        <parent link="base_link" />
+        <child link="random" />
+    </joint>
+    <link name="random"/>
     
     <!-- Waist Joint Transmission -->
     <transmission name="waist_transmission">
@@ -536,6 +542,14 @@
           <param name="min">-0.012</param>
           <param name="max">0.012</param>
         </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+
+    <joint name="right_gripper_joint">
+        <param name="mimic">gripper_joint</param>
+        <param name="multiplier">1</param>
         <state_interface name="position"/>
         <state_interface name="velocity"/>
         <state_interface name="effort"/>
