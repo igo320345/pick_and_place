@@ -5,9 +5,14 @@ find_package(ament_cmake REQUIRED)
 
 ament_package()
 
+install(DIRECTORY
+  config
+  DESTINATION share/${PROJECT_NAME}
+)
+
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/launch")
   install(
-    DIRECTORY launch
+    DIRECTORY launch config
     DESTINATION share/${PROJECT_NAME}
     PATTERN "setup_assistant.launch" EXCLUDE)
 endif()
