@@ -67,9 +67,19 @@ def generate_launch_description():
         arguments=[
             '/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
             '/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model',
-            '/clock@rosgraph_msgs/msg/Clock@gz.msgs.Clock'
+            '/clock@rosgraph_msgs/msg/Clock@gz.msgs.Clock',
+            '/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/image@sensor_msgs/msg/Image@gz.msgs.Image',
+            '/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/depth_image@sensor_msgs/msg/Image@gz.msgs.Image',
+            '/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo',
+            '/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/points@sensor_msgs/msg/PointCloud2@gz.msgs.PointCloudPacked',
         ],
         parameters=[{"use_sim_time": True}],
+        remappings=[
+            ('/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/image', '/depth_camera/image_raw'),
+            ('/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/depth_image', '/depth_camera/depth/image_raw'),
+            ('/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/camera_info', '/depth_camera/camera_info'),
+            ('/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/points', '/depth_camera/points'),
+        ],
     )
     spawn_controller_1 = Node(
         package="controller_manager",
