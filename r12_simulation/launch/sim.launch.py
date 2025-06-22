@@ -3,7 +3,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, TimerAction, ExecuteProcess
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, Command
@@ -15,8 +15,25 @@ def generate_launch_description():
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
     pkg_description = get_package_share_directory('r12_description')
     pkg_moveit = get_package_share_directory('r12_moveit_config')
+    pkg_simulation = get_package_share_directory('r12_simulation')
 
     xacro_file = os.path.join(pkg_description, 'urdf', 'r12.urdf')
+    cube_sdf_path = os.path.join(pkg_simulation, 'models', 'cube.sdf')
+
+    def spawn_cube_at_position(name, x, y, z, delay):
+        return TimerAction(
+            period=delay,
+            actions=[
+                ExecuteProcess(
+                    cmd=['ign', 'service', '-s', '/world/empty/create',
+                         '--reqtype', 'ignition.msgs.EntityFactory',
+                         '--reptype', 'ignition.msgs.Boolean',
+                         '--timeout', '1000',
+                         '--req', f'sdf_filename: "{cube_sdf_path}", name: "{name}", pose: {{position: {{x: {x}, y: {y}, z: {z}}}}}'],
+                    output='screen'
+                )
+            ]
+        )
 
     
     gz_sim = IncludeLaunchDescription(
@@ -77,7 +94,7 @@ def generate_launch_description():
         remappings=[
             ('/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/image', '/depth_camera/image_raw'),
             ('/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/depth_image', '/depth_camera/depth/image_raw'),
-            ('/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/camera_info', '/depth_camera/camera_info'),
+            ('/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/camera_info', '/depth_camera/depth/camera_info'),
             ('/world/empty/model/r12_arm/link/base_link/sensor/rgbd_camera/points', '/depth_camera/points'),
         ],
     )
@@ -111,6 +128,7 @@ def generate_launch_description():
             description='Full path to the Xacro file'
         ),
         ros_gz_bridge,
+        spawn_cube_at_position('cube_1', 1.4, 1.3, 0.1, 5.0),
         moveit,
         rviz,
         spawn,
