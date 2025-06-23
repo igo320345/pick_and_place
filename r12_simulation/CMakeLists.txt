@@ -11,6 +11,10 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(
+  PROGRAMS src/send_moveit_goal.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 # find dependencies
 find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in

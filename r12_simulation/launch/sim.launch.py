@@ -19,6 +19,7 @@ def generate_launch_description():
 
     xacro_file = os.path.join(pkg_description, 'urdf', 'r12.urdf')
     cube_sdf_path = os.path.join(pkg_simulation, 'models', 'cube.sdf')
+    table_sdf_path = os.path.join(pkg_simulation, 'models', 'table.sdf')
 
     def spawn_cube_at_position(name, x, y, z, delay):
         return TimerAction(
@@ -34,8 +35,22 @@ def generate_launch_description():
                 )
             ]
         )
-
     
+    def spawn_table_at_position(name, x, y, z, delay):
+        return TimerAction(
+            period=delay,
+            actions=[
+                ExecuteProcess(
+                    cmd=['ign', 'service', '-s', '/world/empty/create',
+                         '--reqtype', 'ignition.msgs.EntityFactory',
+                         '--reptype', 'ignition.msgs.Boolean',
+                         '--timeout', '1000',
+                         '--req', f'sdf_filename: "{table_sdf_path}", name: "{name}", pose: {{position: {{x: {x}, y: {y}, z: {z}}}, orientation: {{x: 0, y: 0, z: 0.707, w: 0.707}}}}'],
+                    output='screen'
+                )
+            ]
+        )
+
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')),
@@ -128,7 +143,8 @@ def generate_launch_description():
             description='Full path to the Xacro file'
         ),
         ros_gz_bridge,
-        spawn_cube_at_position('cube_1', 1.4, 1.3, 0.1, 5.0),
+        spawn_cube_at_position('cube_1', 1.27, 1.19, 1.0, 5.0),
+        spawn_table_at_position('table', 1.5, 1, 0, 2.5),
         moveit,
         rviz,
         spawn,

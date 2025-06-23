@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <model name="small_table">
+    <static>true</static>
+    <pose>0 0 0 0 0 1.57</pose>
+    
+    <!-- Table Top -->
+    <link name="table_top">
+      <pose>0 0 0.2 0 0 0</pose>
+      <collision name="table_top_collision">
+        <geometry>
+          <box>
+            <size>0.8 0.6 0.04</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="table_top_visual">
+        <geometry>
+          <box>
+            <size>0.8 0.6 0.04</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.8 0.6 0.4 1</ambient>
+          <diffuse>0.8 0.6 0.4 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+    
+    <!-- Leg 1 (Front Left) -->
+    <link name="leg_1">
+      <pose>0.35 0.25 0.1 0 0 0</pose>
+      <collision name="leg_1_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="leg_1_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.5 0.3 0.2 1</ambient>
+          <diffuse>0.5 0.3 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+    
+    <!-- Leg 2 (Front Right) -->
+    <link name="leg_2">
+      <pose>-0.35 0.25 0.1 0 0 0</pose>
+      <collision name="leg_2_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="leg_2_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.5 0.3 0.2 1</ambient>
+          <diffuse>0.5 0.3 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+    
+    <!-- Leg 3 (Back Left) -->
+    <link name="leg_3">
+      <pose>0.35 -0.25 0.1 0 0 0</pose>
+      <collision name="leg_3_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="leg_3_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.5 0.3 0.2 1</ambient>
+          <diffuse>0.5 0.3 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+    
+    <!-- Leg 4 (Back Right) -->
+    <link name="leg_4">
+      <pose>-0.35 -0.25 0.1 0 0 0</pose>
+      <collision name="leg_4_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="leg_4_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.02</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.5 0.3 0.2 1</ambient>
+          <diffuse>0.5 0.3 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+    
+    <!-- Joints to connect legs to table top -->
+    <joint name="table_top_to_leg_1" type="fixed">
+      <parent>table_top</parent>
+      <child>leg_1</child>
+    </joint>
+    
+    <joint name="table_top_to_leg_2" type="fixed">
+      <parent>table_top</parent>
+      <child>leg_2</child>
+    </joint>
+    
+    <joint name="table_top_to_leg_3" type="fixed">
+      <parent>table_top</parent>
+      <child>leg_3</child>
+    </joint>
+    
+    <joint name="table_top_to_leg_4" type="fixed">
+      <parent>table_top</parent>
+      <child>leg_4</child>
+    </joint>
+    
+  </model>
+</sdf>
